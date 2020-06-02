@@ -61,7 +61,7 @@ public class ClientDAOImpl implements ClientDAO {
 		catch (SQLException e) {
 			printSQLException(e);
 			LOGGER.error("SQL exception during"
-					+ " getting a list of students from database");
+					+ " getting a list of students from database " + e);
 		}
 		finally {
 			// close JDBC objects
@@ -90,11 +90,13 @@ public class ClientDAOImpl implements ClientDAO {
 		
 		//execute statement
 		statement.execute();
-		LOGGER.info("Add client into database - SQL query executed");
+		
+		LOGGER.info("Add client "+client.getFirstName()+" "+client.getLastName() +
+				" into database - SQL query "+SqlQuery.ADD.getQuery() +" executed");
 		}
 		catch(SQLException e) {
 			printSQLException(e);
-			LOGGER.error("SQL exception during adding a client into database");
+			LOGGER.error("SQL exception during adding a client into database " + e);
 		}
 		finally {
 			// close JDBC objects
@@ -142,7 +144,8 @@ public class ClientDAOImpl implements ClientDAO {
 			else {
 				throw new SQLException();
 			}				
-			LOGGER.info("Get client from database by id - SQL query executed");
+			LOGGER.info("Get client "+ client+" from database by id"
+					+ " - SQL query "+SqlQuery.LOAD.getQuery()+" executed");
 			return client;
 		}
 		finally {
@@ -172,11 +175,14 @@ public class ClientDAOImpl implements ClientDAO {
 		
 		//execute SQL statement
 		statement.execute();
-		LOGGER.info("Update a client in a database - SQL query executed");
+		
+		LOGGER.info("Update a client "+client.getFirstName()+" "
+		+client.getLastName()+" in a database -"
+				+ " SQL query "+SqlQuery.UPDATE.getQuery()+" executed");
 	}
 	catch (SQLException e) {
 		printSQLException(e);
-		LOGGER.error("SQL exception during updating a client");
+		LOGGER.error("SQL exception during updating a client "+e);
 	}
 	finally {	
 		// close JDBC objects
@@ -204,10 +210,14 @@ public class ClientDAOImpl implements ClientDAO {
 		
 		//execute SQL statement
 		statement.execute();
-		LOGGER.info("Delete a client from database - SQL query executed");
+		
+		LOGGER.info("Delete a client with id "+id+" from database"
+				+ " - SQL query "+SqlQuery.DELETE.getQuery()+" executed");
 		}
 		catch (SQLException e) {
 			printSQLException(e);
+			LOGGER.error("SQL exception during deleting"
+					+ " a client from database "+e);
 		}
 		finally {
 			// close JDBC objects
@@ -224,7 +234,6 @@ public class ClientDAOImpl implements ClientDAO {
                 System.err.println("SQLState: " + ((SQLException) e).getSQLState());
                 System.err.println("Error Code: " + ((SQLException) e).getErrorCode());
                 System.err.println("Message: " + e.getMessage());
-                LOGGER.error("SQL exception " +e.getMessage());
                 Throwable t = ex.getCause();
                 while (t != null) {
                     System.out.println("Cause: " + t);
@@ -249,6 +258,7 @@ public class ClientDAOImpl implements ClientDAO {
 				}
 			}
 			catch (SQLException e) {
+				LOGGER.error("SQL exception during connection closing "+e);
 				printSQLException(e);;
 			}
 			

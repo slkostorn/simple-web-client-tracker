@@ -46,6 +46,7 @@ public class ClientControllerServlet extends HttpServlet {
 		LOGGER.info("Inject connection into initialization method");
 		}
 		catch (Exception e) {
+			LOGGER.error("Servlet exception " + e);
 			throw new ServletException(e);
 		}
 	}
@@ -96,6 +97,7 @@ public class ClientControllerServlet extends HttpServlet {
 				
 		}
 		catch (Exception e) {
+			LOGGER.error("Servlet exception " + e);
 			throw new ServletException(e);
 		}
 	}
