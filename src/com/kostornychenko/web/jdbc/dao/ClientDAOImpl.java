@@ -21,12 +21,12 @@ public class ClientDAOImpl implements ClientDAO {
 	//source factory connection from context.xml
 	private DataSource dataSource;
 	
-	//constant sql query commands
-	final String SQL_SELECT = "select * from client order by last_name";
-	final String SQL_ADD = "insert into client (first_name, last_name, email) values (?,?,?)";
-	final String SQL_LOAD = "select * from client where id=?";
-	final String SQL_UPDATE = "update client set first_name=?, last_name=?, email=? where id=?";
-	final String SQL_DELETE = "delete from client where id=?";
+//	//constant sql query commands
+//	final String SQL_SELECT = "select * from client order by last_name";
+//	final String SQL_ADD = "insert into client (first_name, last_name, email) values (?,?,?)";
+//	final String SQL_LOAD = "select * from client where id=?";
+//	final String SQL_UPDATE = "update client set first_name=?, last_name=?, email=? where id=?";
+//	final String SQL_DELETE = "delete from client where id=?";
 	
 	//constructor for connection injection in servlet
 	public ClientDAOImpl (DataSource dataSource) {
@@ -50,7 +50,7 @@ public class ClientDAOImpl implements ClientDAO {
 		//create connection, SQL statement and execute query
 		connection = dataSource.getConnection();
 		statement = connection.createStatement();
-		resultSet = statement.executeQuery(SQL_SELECT);
+		resultSet = statement.executeQuery(SqlQuery.SELECT.getQuery());
 		
 		while(resultSet.next()) {
 			int id = resultSet.getInt("id");
@@ -87,7 +87,7 @@ public class ClientDAOImpl implements ClientDAO {
 		try {
 		//create connection and sql statement
 		connection = dataSource.getConnection();	
-		statement = connection.prepareStatement(SQL_ADD);
+		statement = connection.prepareStatement(SqlQuery.ADD.getQuery());
 		
 		//set parameters to SQL statement
 		statement.setString(1, client.getFirstName());
@@ -128,7 +128,7 @@ public class ClientDAOImpl implements ClientDAO {
 			connection = dataSource.getConnection();
 			
 			// create prepared statement
-			statement = connection.prepareStatement(SQL_LOAD);
+			statement = connection.prepareStatement(SqlQuery.LOAD.getQuery());
 			
 			// set parameter into SQL query
 			statement.setInt(1, clientId);
@@ -168,7 +168,7 @@ public class ClientDAOImpl implements ClientDAO {
 		try {
 		//create connection and sql statement
 		connection = dataSource.getConnection();
-		statement = connection.prepareStatement(SQL_UPDATE);
+		statement = connection.prepareStatement(SqlQuery.UPDATE.getQuery());
 		
 		//set parameters into SQL query
 		statement.setString(1, client.getFirstName());
@@ -203,7 +203,7 @@ public class ClientDAOImpl implements ClientDAO {
 		connection = dataSource.getConnection();
 					
 		// create prepared statement
-		statement = connection.prepareStatement(SQL_DELETE);
+		statement = connection.prepareStatement(SqlQuery.DELETE.getQuery());
 		
 		//set id parameter into SQL statement
 		statement.setInt(1, id);
