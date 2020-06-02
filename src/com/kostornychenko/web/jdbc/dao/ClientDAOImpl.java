@@ -21,12 +21,6 @@ public class ClientDAOImpl implements ClientDAO {
 	//source factory connection from context.xml
 	private DataSource dataSource;
 	
-//	//constant sql query commands
-//	final String SQL_SELECT = "select * from client order by last_name";
-//	final String SQL_ADD = "insert into client (first_name, last_name, email) values (?,?,?)";
-//	final String SQL_LOAD = "select * from client where id=?";
-//	final String SQL_UPDATE = "update client set first_name=?, last_name=?, email=? where id=?";
-//	final String SQL_DELETE = "delete from client where id=?";
 	
 	//constructor for connection injection in servlet
 	public ClientDAOImpl (DataSource dataSource) {
